@@ -11,5 +11,21 @@
         <input type="file" name="file" required>
         <button type="submit">Upload</button>
     </form>
+    <br>
+    <h2>Daftar File Terupload</h2>
+    <ul id="file-list"></ul>
+    <script>
+      async function fetchFiles() {
+        const res = await fetch('/files');
+        const files = await res.json();
+        const list = document.getElementById('file-list');
+        if (files.length === 0) {
+          list.innerHTML = '<li>Belum ada file terupload.</li>';
+        } else {
+          list.innerHTML = files.map(f => `<li><a href="https://bucket152023047.s3.ap-southeast-2.amazonaws.com/152023047_Fadli%20Ahmad%20F.pdf" target="_blank">${f.filename}</a></li>`).join('');
+        }
+      }
+      fetchFiles();
+    </script>
 </body>
 </html>
